@@ -1,0 +1,50 @@
+CHERCHE( 1 ) 		Commandes CHERCHE( 1 ) 		CHERCHE( 1 )
+
+NOM
+	cherche − Recherche multi−critères de fichiers
+
+SYNOPSIS
+	cherche [OPTION ] . . . [CHEMIN]
+
+DESCRIPTION
+	Recherche des fichiers dans CHEMIN (dans le répertoire courant par défaut) et ses sous−répertoires et affiche éventuellement des informations. Les fichiers trouvés sont affichés dans l’ordre alphabétique.
+
+OPTIONS
+	Par défaut, cherche affiche tous les fichiers ,répertoires ,liens symboliques, etc. trouvés. Il est possible d’utiliser cherche pour n’afficher que les fichiers contenant une chaîne et/ou étant détectés comme des images par la bibliothèque libmagic.
+
+	Aucune option n’ est obligatoire .
+
+	Si un chemin n’est pas précisé, le répertoire courant est utilisé.
+
+	−l
+		listing long (détaillé). Affichage des permissions, de la taille, et de la cible des liens symboliques .
+
+	−t CHAINE
+		Restreint la sortie aux fichiers contenant la chaîne CHAINE.
+
+	−T CHAINE
+		Recherche d’expressions régulières Perl.
+
+	−i
+		Restreint la sortie aux fichiers détectés comme des images par la bibliothèque libmagic (ceux dont le type MIME commence par image/).
+
+	−p NBTHREADS
+		Utilise NBTHREADS threads pour accélérer l’analyse des fichiers pour la recherche de texte ou d’images.
+
+	Les options −i et −t peuvent être combinées. Dans ce cas, les fichiers affichés sont ceux correspondant aux deux critères . C’est par exemple utile pour analyser des images vectorielles SVG, dont le format est basé sur XML.
+
+VALEUR DE RETOUR
+	cherche s’arrête en renvoyant la valeur de retour 0 si tous les traitements se sont déroulés avec succès. En cas d’erreur (répertoire inaccessible , fichier ne pouvant être analysé car non−lisible par l’utilisateur, etc.), cherche s’arrête en renvoyant la valeur de retour 1.
+
+EXEMPLES
+	cherche
+		Liste les fichiers (et répertoires) trouvés dans le répertoire courant et ses sous−répertoires.
+
+	cherche −l /usr/bin
+		Liste de manière détaillée le contenu du répertoire /usr/bin (et ses sous−répertoires)
+
+	cherche −l −p 4 −t human −i /usr/share/openclipart/svg/
+		Cherche les images contenant la chaîne de caractères ”human” dans /usr/share/openclipart/svg/, et les affiche sous la forme d’un listing détaillé. Pour accélérer la recherche, 4 threads sont utilisés.
+
+VOIR AUSSI
+	find(1), file (1), libmagic(3), magic(5)
